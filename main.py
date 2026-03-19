@@ -18,7 +18,7 @@ levels = {
     'level 3': []
 }
 
-with open("level-2.json") as file:
+with open("levels/level-2.json") as file:
     data = json.load(file)
     for collider in data["colliders"]:
         levels['level 2'].append(
@@ -27,7 +27,7 @@ with open("level-2.json") as file:
 
 
 
-with open("level-3.json") as file:
+with open("levels/level-3.json") as file:
     data = json.load(file)
     for collider in data["colliders"]:
         levels['level 3'].append(
