@@ -7,10 +7,33 @@ from config   import *
 from particle import *
 from player   import *
 
+import json
+
 pygame.mixer.init()
 
-levels = {'level 0': [pygame.Rect(width//8, height-200, width//2, 50), pygame.Rect(width//4, height-350, width//2, 50), pygame.Rect(width//1.5, 0, 50, height//2)],
-          'level 1': [pygame.Rect(width//8, height-200, width//2, 50)]}
+levels = {
+    'level 0': [pygame.Rect(width//8, height-200, width//2, 50), pygame.Rect(width//4, height-350, width//2, 50), pygame.Rect(width//1.5, 0, 50, height//2)],
+    'level 1': [pygame.Rect(width//8, height-200, width//2, 50)],
+    'level 2': [],
+    'level 3': []
+}
+
+with open("level-2.json") as file:
+    data = json.load(file)
+    for collider in data["colliders"]:
+        levels['level 2'].append(
+            pygame.Rect(*map(lambda x: x * 8, collider))
+        )
+
+
+
+with open("level-3.json") as file:
+    data = json.load(file)
+    for collider in data["colliders"]:
+        levels['level 3'].append(
+            pygame.Rect(*map(lambda i: i * 2, collider)) # collider = [x, y, w, h]
+        )
+
 
 class Main:
 
@@ -61,11 +84,17 @@ class Main:
 
         # __ ! TEMPORARY LEVEL SWITCH CODE ! __
 
-        if keys[pygame.K_KP_0]: # NUMPAD 0
+        if keys[pygame.K_0]: # NUMPAD 0
             self.level = 0
 
-        if keys[pygame.K_KP_1]: # NUMPAD 1
+        if keys[pygame.K_1]: # NUMPAD 1
             self.level = 1
+        
+        if keys[pygame.K_2]: # NUMPAD 2
+            self.level = 2
+        
+        if keys[pygame.K_3]: # NUMPAD 3
+            self.level = 3
         
         # _____________________________________
 
